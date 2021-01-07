@@ -15,8 +15,9 @@ def test_no_proxy():
 
     # When
     response = requests.get(
+        # proxies=proxies,
         url=base_url + "/hello/world",
-        # verify=False,
+        verify=False,
         headers={
             'accept': 'application/json'
         }

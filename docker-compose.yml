@@ -1,0 +1,18 @@
+version: '3'
+services:
+ mitmproxy:
+  image: mitmproxy/mitmproxy:latest
+  volumes:
+  - ~/.mitmproxy:/home/mitmproxy/.mitmproxy
+  - ./:/home/mitmproxy
+  command: mitmdump -s /home/mitmproxy/proxyscript.py
+
+  ports:
+  - 8080:8080
+ my-service:
+  build: .
+  environment:
+   HTTP_PROXY: http://mitmproxy:8080
+   HTTPS_PROXY: https://mitmproxy:8080
+
+
