@@ -5,7 +5,7 @@ base_url = "https://internal-dev.api.service.nhs.uk/hello-world"
 
 proxies = {
     "http": "http://127.0.0.1:8080",
-    "https": "https://127.0.0.1:8080"
+    "https": "http://127.0.0.1:8080"
 }
 
 
@@ -15,9 +15,9 @@ def test_no_proxy():
 
     # When
     response = requests.get(
-        # proxies=proxies,
+        proxies=proxies,
         url=base_url + "/hello/world",
-        verify=False,
+	verify="~/.mitmproxy/mitmproxy-ca-cert.pem",
         headers={
             'accept': 'application/json'
         }
@@ -33,10 +33,10 @@ def test_proxy_returns_408():
 
     # When
     response = requests.get(
-        # proxies=proxies,
-        verify=False,
+        proxies=proxies,
         url=base_url + "/hello/world",
-        headers={
+	verify="~/.mitmproxy/mitmproxy-ca-cert.pem",
+	headers={
             'TestScenario': 'GetHelloWorld408',
             'accept': 'application/json'
         }
