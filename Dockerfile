@@ -5,7 +5,7 @@ RUN apt-get update \
 RUN pip install pytest requests assertpy mitmproxy
 
 RUN mkdir demo
-COPY proxyscript.py requirement.txt tests.py demo/
+COPY proxyscript.py requirements.txt tests.py demo/
 
 #    && source venv/bin/activate \
 #    && python -m venv venv \
@@ -13,4 +13,5 @@ COPY proxyscript.py requirement.txt tests.py demo/
 #    && pip install -r requirement.txt
 
 EXPOSE 8080
+VOLUME /certs
 ENTRYPOINT pytest -q demo/tests.py

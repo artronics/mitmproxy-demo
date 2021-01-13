@@ -9,10 +9,15 @@ services:
 
   ports:
   - 8080:8080
+
  my-service:
   build: .
+  depends_on:
+   - mitmproxy
   environment:
-   HTTP_PROXY: http://mitmproxy:8080
-   HTTPS_PROXY: https://mitmproxy:8080
+   MITMPROXY_URL: http://mitmproxy:8080
+   CERT_PATH: /certs/.mitmproxy/mitmproxy-ca-cert.pem
+  volumes:
+  - ~/.mitmproxy:/certs/.mitmproxy
 
 
